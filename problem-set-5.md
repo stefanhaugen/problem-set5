@@ -1,4 +1,5 @@
 
+#Stefan Haugen
 # Overview
 For this problem set you will write a series of python programs to perform
 sequence analysis tasks. Please edit this document to include your answers and
@@ -12,11 +13,37 @@ chromosome in a bed file. Write the program as a python script named
 Execute your program on the ``data-sets/bed/lamina.bed`` file:
 
 ```bash
-python3 problem_1.py lamina.bed
+python3 problem_1.py 
+
+
+
+from collections import Counter
+
+counts = Counter()
+
+for line in open('/Users/stefanhaugen/temp/data-sets/bed/lamina.bed'):
+
+if line.startswith('#'): continue
+
+fields = line.split('\t')
+
+chrom = fields[0]
+
+counts[chrom] += 1
+
+##there must be a better way to sort dictionaries here...
+
+for chrom, count in counts.items():
+	sortme = [(v,k) for k,v in counts.items()]
+	sortme
+	sortme.sort()
+	sortme.reverse()
+	
+print(sortme[0][1])
 ```
 
 Which chromosome has the most intervals?
-``write your answer here``
+``problem_1.py``
 
 ## Problem 2
 Write a python program that parses a fastq file and determines the total number
@@ -26,16 +53,64 @@ of ``C`` bases in the fastq. Write the program as a python script named
 Execute your program on the ``data-sets/fastq/SP1.fq`` file.
 
 ```bash
+
 python3 problem_2.py SP1.fq
+
+import sys
+from collections import Counter
+
+filename = sys.argv[1]
+
+count = 0
+
+bases = Counter()
+
+for line in open('~/temp/data-sets/fastq/SP1.fq'):
+	line = line.rstrip()
+	if count == -:
+		name = line
+		count += 1
+		
+	elif count == 1:
+		seq = line
+		count += 1
+		
+	elif count == 2
+		 count += 1
+		 
+	elif count == 3:
+		qual = line
+		count = 0
+		
+		for base in seq:
+			bases[base] += 1
+			
+print(bases['C'])
+
 ```
 
 What is the total number of ``C`` bases?
-``write your answer here``
+``problem_2.py``
 
 ## Problem 3:
 Write a python program that parses a fastq file and determines the most
 common 6-mer (aka hexamer) sequence at the 5' and also the 3' end of each read. 
 Write the program as a python script named ``problem_3.py``
+
+```
+python3 problem_3.py
+
+for i in range(0, line.length-1):
+
+     if (line.length-1) - i >= 6:
+
+           hexamer = line[i] line[ i+1] line[ i+2] line[i+3] line [i+4] line [i + 5]
+
+            aka_hexamers_5[hexamer] +=1
+
+```
+
+```
 
 What is the most common hexamer at the 5' end?
 ``write your answer here``
